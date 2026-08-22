@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Логово BSN — сообщество о вайбкодинге, AI-инструментах и быстрой разработке цифровых продуктов.">
+  <meta name="theme-color" content="#050505">
+  <title>Логово BSN — вайбкодинг без границ</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #050505;
+      --panel: #0c0c0c;
+      --text: #f5f5f0;
+      --muted: #969690;
+      --acid: #c7ff2f;
+      --acid-soft: rgba(199, 255, 47, 0.12);
+      --line: rgba(255, 255, 255, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        radial-gradient(circle at 72% 14%, rgba(199, 255, 47, 0.1), transparent 25rem),
+        var(--bg);
+      background-size: 48px 48px, 48px 48px, auto, auto;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.5;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background: linear-gradient(110deg, transparent 0 65%, rgba(199, 255, 47, 0.03) 65% 66%, transparent 66%);
+      content: "";
+      pointer-events: none;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 92px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .mark {
+      display: grid;
+      width: 52px;
+      height: 52px;
+      place-items: center;
+      border: 1px solid rgba(255, 255, 255, 0.32);
+      border-radius: 50%;
+      background: #000;
+      box-shadow: inset 0 0 0 4px #080808, 0 0 30px rgba(199, 255, 47, 0.08);
+      color: #fff;
+      font-size: 1.05rem;
+      font-weight: 1000;
+      letter-spacing: -0.12em;
+      transform: rotate(-3deg);
+    }
+
+    .brand-copy {
+      display: grid;
+    }
+
+    .brand-copy strong {
+      font-size: 0.95rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .brand-copy span {
+      color: var(--muted);
+      font-family: Consolas, monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      transition: color 160ms ease;
+    }
+
+    nav a:hover {
+      color: var(--acid);
+    }
+
+    main {
+      padding-bottom: 80px;
+    }
+
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.5fr);
+      gap: 50px;
+      align-items: center;
+      min-height: 690px;
+      padding: 88px 0 70px;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+      color: var(--acid);
+      font-family: Consolas, monospace;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .status::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--acid);
+      box-shadow: 0 0 16px var(--acid);
+      content: "";
+    }
+
+    h1 {
+      max-width: 920px;
+      font-size: clamp(4rem, 10.5vw, 9.5rem);
+      font-weight: 1000;
+      letter-spacing: -0.085em;
+      line-height: 0.78;
+      text-transform: uppercase;
+    }
+
+    h1 span {
+      display: block;
+      margin-left: 0.43em;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.78);
+    }
+
+    .hero-copy {
+      max-width: 670px;
+      margin-top: 42px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+    }
+
+    .hero-copy strong {
+      color: var(--text);
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      min-height: 58px;
+      padding: 0 24px;
+      border: 1px solid var(--line);
+      font-family: Consolas, monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      transition: transform 160ms ease, background 160ms ease, border-color 160ms ease;
+    }
+
+    .button-primary {
+      border-color: var(--acid);
+      background: var(--acid);
+      color: #050505;
+    }
+
+    .button:hover {
+      border-color: var(--acid);
+      transform: translateY(-3px);
+    }
+
+    .button-primary:hover {
+      background: #d4ff5e;
+    }
+
+    .emblem {
+      position: relative;
+      display: grid;
+      aspect-ratio: 1;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, transparent 31%, rgba(255, 255, 255, 0.06) 31.5% 32%, transparent 32.5%),
+        radial-gradient(circle, rgba(255, 255, 255, 0.06), transparent 62%),
+        #030303;
+      box-shadow: 0 0 80px rgba(199, 255, 47, 0.07);
+    }
+
+    .emblem::before,
+    .emblem::after {
+      position: absolute;
+      top: 15%;
+      width: 31%;
+      height: 42%;
+      border-top: 3px solid #4f4f4f;
+      content: "";
+    }
+
+    .emblem::before {
+      left: 10%;
+      border-left: 2px solid #333;
+      border-radius: 100% 0 0;
+      transform: rotate(30deg);
+    }
+
+    .emblem::after {
+      right: 10%;
+      border-right: 2px solid #333;
+      border-radius: 0 100% 0 0;
+      transform: rotate(-30deg);
+    }
+
+    .emblem-text {
+      position: relative;
+      z-index: 1;
+      font-size: clamp(4.5rem, 10vw, 8.5rem);
+      font-weight: 1000;
+      letter-spacing: -0.13em;
+      text-shadow: 5px 0 #202020, -3px 0 #5a5a5a;
+      transform: skew(-4deg);
+    }
+
+    .emblem-code {
+      position: absolute;
+      bottom: 19%;
+      z-index: 2;
+      color: var(--acid);
+      font-family: Consolas, monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.26em;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 28px;
+      padding-top: 72px;
+      border-top: 1px solid var(--line);
+    }
+
+    .kicker {
+      color: var(--acid);
+      font-family: Consolas, monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin-top: 10px;
+      font-size: clamp(2.3rem, 5vw, 4.6rem);
+      letter-spacing: -0.055em;
+      line-height: 0.95;
+      text-transform: uppercase;
+    }
+
+    .section-note {
+      max-width: 360px;
+      color: var(--muted);
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .card {
+      position: relative;
+      min-height: 310px;
+      overflow: hidden;
+      padding: 28px;
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.045), transparent 58%), var(--panel);
+      transition: transform 180ms ease, border-color 180ms ease;
+    }
+
+    .card::after {
+      position: absolute;
+      right: -55px;
+      bottom: -70px;
+      width: 180px;
+      height: 180px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .card:hover {
+      border-color: rgba(199, 255, 47, 0.55);
+      transform: translateY(-6px);
+    }
+
+    .card-number {
+      color: var(--acid);
+      font-family: Consolas, monospace;
+      font-size: 0.75rem;
+    }
+
+    .card h3 {
+      margin-top: 80px;
+      font-size: 1.65rem;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+    }
+
+    .card p {
+      max-width: 300px;
+      margin-top: 13px;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .manifest {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 80px;
+      margin-top: 100px;
+      padding: 70px 0;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .manifest p {
+      font-size: clamp(1.5rem, 3vw, 2.6rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.18;
+    }
+
+    .manifest p span {
+      color: var(--muted);
+    }
+
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 32px 0;
+      color: var(--muted);
+      font-family: Consolas, monospace;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+    }
+
+    footer a:hover {
+      color: var(--acid);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 22px;
+    }
+
+    a:focus-visible {
+      outline: 2px solid var(--acid);
+      outline-offset: 5px;
+    }
+
+    @media (max-width: 850px) {
+      .hero {
+        grid-template-columns: 1fr;
+        min-height: auto;
+      }
+
+      .emblem {
+        width: min(420px, 82vw);
+        margin: 10px auto 0;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        min-height: 250px;
+      }
+
+      .card h3 {
+        margin-top: 45px;
+      }
+
+      .manifest {
+        grid-template-columns: 1fr;
+        gap: 26px;
+      }
+    }
+
+    @media (max-width: 580px) {
+      .shell {
+        width: min(100% - 28px, 1180px);
+      }
+
+      header {
+        min-height: 78px;
+      }
+
+      nav a:first-child {
+        display: none;
+      }
+
+      nav {
+        gap: 14px;
+      }
+
+      .brand-copy {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 62px;
+      }
+
+      h1 {
+        font-size: clamp(3.7rem, 20vw, 6rem);
+      }
+
+      .actions {
+        display: grid;
+      }
+
+      .section-head,
+      footer {
+        align-items: start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <a class="brand" href="#top" aria-label="Логово BSN — на главную">
+        <span class="mark" aria-hidden="true">BSN</span>
+        <span class="brand-copy"><strong>Логово BSN</strong><span>vibe coding team</span></span>
+      </a>
+      <nav aria-label="Основная навигация">
+        <a href="#about">О нас</a>
+        <a href="#directions">Направления</a>
+        <a href="https://t.me/bsn_vibe">TG-канал ↗</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="main-title">
+        <div>
+          <div class="status">Система активна · 2026</div>
+          <h1 id="main-title">Логово<span>BSN</span></h1>
+          <p class="hero-copy"><strong>Вайбкодим идеи в работающие продукты.</strong> Используем AI, сильный визуал и скорость, чтобы превращать замысел в реальность без лишнего шума.</p>
+          <div class="actions">
+            <a class="button button-primary" href="https://t.me/bsn_vibe">Войти в логово <span aria-hidden="true">↗</span></a>
+            <a class="button" href="https://t.me/bsn_on_vibe">Связаться с командой</a>
+          </div>
+        </div>
+        <div class="emblem" role="img" aria-label="Логотип команды BSN">
+          <span class="emblem-text">BSN</span>
+          <span class="emblem-code">BUILD_SHIP_NOW</span>
+        </div>
+      </section>
+
+      <section id="directions" aria-labelledby="directions-title">
+        <div class="section-head">
+          <div>
+            <div class="kicker">// Чем занимаемся</div>
+            <h2 id="directions-title">Кодим на вайбе.<br>Делаем всерьёз.</h2>
+          </div>
+          <p class="section-note">Три направления, один принцип: меньше разговоров — больше работающих решений.</p>
+        </div>
+
+        <div class="cards">
+          <article class="card">
+            <div class="card-number">[ 01 ]</div>
+            <h3>Vibe Development</h3>
+            <p>Собираем сайты, сервисы и прототипы с AI-инструментами быстрее классического процесса.</p>
+          </article>
+          <article class="card">
+            <div class="card-number">[ 02 ]</div>
+            <h3>AI-интеграции</h3>
+            <p>Встраиваем нейросети в реальные задачи: автоматизация, контент, боты и умные сценарии.</p>
+          </article>
+          <article class="card">
+            <div class="card-number">[ 03 ]</div>
+            <h3>Комьюнити</h3>
+            <p>Делимся инструментами, промптами, кейсами и опытом без инфошума и лишней теории.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="manifest" id="about" aria-labelledby="manifest-title">
+        <div>
+          <div class="kicker">// Манифест BSN</div>
+          <h2 id="manifest-title">Build.<br>Ship.<br>Now.</h2>
+        </div>
+        <p>Мы не ждём идеального момента. <span>Берём идею, ловим вайб, запускаем и улучшаем в движении.</span> Будущее создают те, кто уже открыл редактор.</p>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 Логово BSN</span>
+      <div class="footer-links">
+        <a href="https://t.me/bsn_vibe">Канал: @bsn_vibe</a>
+        <a href="https://t.me/bsn_on_vibe">Связь: @bsn_on_vibe</a>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
